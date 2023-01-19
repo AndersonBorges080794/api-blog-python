@@ -261,6 +261,6 @@ def excluir_autor(autor, id_autor):#O parâmetro 'autor' deve ser passada como o
     return jsonify({'mensagem': 'Autor excluído com sucesso!'})
 
 
-    
+#Executando API    
 app.run(port=7777, host='localhost', debug=True)
 
