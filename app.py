@@ -4,6 +4,7 @@ import json
 import jwt
 from datetime import datetime, timedelta
 from functools import wraps
+import os
 
 #API(postagem) com conexão ao banco de dados(banco SQLite)
 
@@ -261,6 +262,7 @@ def excluir_autor(autor, id_autor):#O parâmetro 'autor' deve ser passada como o
     return jsonify({'mensagem': 'Autor excluído com sucesso!'})
 
 
-#Executando API    
-app.run(port=7777, host='localhost', debug=True)
+#Executando API
+if __name__ == '__main__':    
+    app.run(debug=True, port=os.gentenv("PORT", default=5000))
 

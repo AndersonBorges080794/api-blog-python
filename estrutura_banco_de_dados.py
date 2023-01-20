@@ -10,7 +10,7 @@ with app.app_context():
 
     #2° Criar uma instância de SQLAlchemy
     app.config['SECRET_KEY'] = 'asdbc36555@#$%???oeyrnsmnakaaa'#Autenticação
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'#string de conexão do banco de dados
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:7r9CrfkR6jxWkoIyX4ZR@containers-us-west-88.railway.app:7830/railway'#string de conexão do banco de dados
 
     db = SQLAlchemy(app)
     db: SQLAlchemy#tipando a variável ou seja deixando statica.
@@ -40,14 +40,15 @@ with app.app_context():
     
     #Função para evitar que drop o banco toda vez que rodar o arquivo
     def inicializar_banco():
-        #Executar o comando para criar o banco de dados
-        db.drop_all()
-        db.create_all()
+        with app.app_context():
+            #Executar o comando para criar o banco de dados
+            db.drop_all()
+            db.create_all()
             
-        #Criar usuários administradores
-        autor = Autor(nome='Anderson', email='anderson@teste.com', senha='123456', admin=True)
-        db.session.add(autor)
-        db.session.commit()
+            #Criar usuários administradores
+            autor = Autor(nome='Anderson', email='anderson@teste.com', senha='123456', admin=True)
+            db.session.add(autor)
+            db.session.commit()
     
     #Condicional para verificar se o arquivo é o main e se for vai rodar a função de inicializar banco.
     if __name__ == '__main__':
